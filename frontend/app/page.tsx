@@ -456,7 +456,7 @@ export default function Dashboard() {
           <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 animate-fade-in text-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             <p className="text-gray-500">Couldn&apos;t connect to Aegis backend.</p>
-            <button onClick={fetchDashboard}
+            <button onClick={() => fetchDashboard()}
               className="px-6 py-2.5 rounded-full border border-white/10 text-sm font-semibold hover:bg-white/5 transition">
               Retry
             </button>
