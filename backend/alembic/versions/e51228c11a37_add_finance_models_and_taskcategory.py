@@ -46,14 +46,8 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_transactions_user_id'), 'transactions', ['user_id'], unique=False)
-    op.drop_index(op.f('memories_hnsw_idx'), table_name='memories', postgresql_ops={'vector': 'vector_cosine_ops'}, postgresql_using='hnsw')
-    op.drop_index(op.f('memories_text_lemmatized_idx'), table_name='memories', postgresql_using='gin')
-    op.drop_table('memories')
-    op.drop_index(op.f('ix_habits_user_id'), table_name='habits')
-    op.drop_table('habits')
-    op.add_column('conversations', sa.Column('project_id', sa.Integer(), nullable=True))
-    op.create_index(op.f('ix_conversations_project_id'), 'conversations', ['project_id'], unique=False)
-    op.create_foreign_key(None, 'conversations', 'projects', ['project_id'], ['id'])
+
+
     taskcategory = postgresql.ENUM('Necessities', 'College', 'Business', 'FRKProductions', 'Finance', 'Health', 'Learning', 'Content', 'Social', 'Household', 'Creative', 'Wellbeing', 'Travel', 'Maintenance', 'Growth', 'Uncategorized', name='taskcategory')
     taskcategory.create(op.get_bind(), checkfirst=True)
     op.add_column('tasks', sa.Column('category', taskcategory, nullable=False, server_default='Uncategorized'))

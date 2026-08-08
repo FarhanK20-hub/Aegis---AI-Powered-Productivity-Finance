@@ -37,9 +37,7 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_habits_user_id'), 'habits', ['user_id'], unique=False)
-    op.drop_index(op.f('memories_hnsw_idx'), table_name='memories', postgresql_ops={'vector': 'vector_cosine_ops'}, postgresql_using='hnsw')
-    op.drop_index(op.f('memories_text_lemmatized_idx'), table_name='memories', postgresql_using='gin')
-    op.drop_table('memories')
+
     op.add_column('conversations', sa.Column('project_id', sa.Integer(), nullable=True))
     op.create_index(op.f('ix_conversations_project_id'), 'conversations', ['project_id'], unique=False)
     op.create_foreign_key(None, 'conversations', 'projects', ['project_id'], ['id'])
