@@ -175,10 +175,11 @@ def search_memory(q: str, user_id: str):
 # Routers
 # ---------------------------------------------------------------------------
 
-from app.api.endpoints import agents, whatsapp, documents, tasks, habits
+from app.api.endpoints import agents, whatsapp, documents, tasks, habits, finance
 app.include_router(agents.router, prefix="/agents", tags=["Agents"])
 app.include_router(notifications.router, prefix="/notifications", tags=["Notifications"])
 app.include_router(whatsapp.router, prefix="/notifications/whatsapp", tags=["WhatsApp"])
 app.include_router(documents.router, prefix="/documents", tags=["Documents"])
 app.include_router(tasks.router, prefix="/tasks", tags=["Tasks"])
 app.include_router(habits.router, prefix="/habits", tags=["Habits"])
+app.include_router(finance.router, prefix="/finance", tags=["Finance"])

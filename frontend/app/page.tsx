@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import ManualPanel from "../components/ManualPanel";
 
 declare global {
   interface Window {
@@ -271,6 +272,7 @@ export default function Dashboard() {
   const [pendingInput, setPendingInput] = useState<string | null>(null); // shows immediately while processing
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [currentTime, setCurrentTime] = useState("");
+  const [showManualPanel, setShowManualPanel] = useState(false);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
@@ -438,6 +440,20 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-4">
           <span className="font-mono text-sm hidden sm:block" style={{ color: 'var(--text-muted)' }}>{currentTime}</span>
+          {/* Manual Mode Button */}
+          <button
+            id="manual-mode-btn"
+            onClick={() => setShowManualPanel(true)}
+            aria-label="Manual Mode"
+            title="Manual Mode — manage everything without AI"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all"
+            style={{ background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.25)', color: '#a78bfa' }}
+            onMouseOver={e => { e.currentTarget.style.background = 'rgba(139,92,246,0.2)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.4)'; }}
+            onMouseOut={e => { e.currentTarget.style.background = 'rgba(139,92,246,0.1)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.25)'; }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Manual
+          </button>
           <button className="icon-btn" aria-label="Notifications" title="Notifications">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
           </button>
@@ -790,6 +806,15 @@ export default function Dashboard() {
           </button>
         </form>
       </footer>
+
+      {/* MANUAL PANEL */}
+      <ManualPanel
+        isOpen={showManualPanel}
+        onClose={() => setShowManualPanel(false)}
+        api={API}
+        userId={USER_ID}
+        onRefreshDashboard={() => Promise.all([fetchDashboard(true), fetchTransactions(), fetchHabits()])}
+      />
     </div>
   );
 }
