@@ -584,7 +584,7 @@ export default function Dashboard() {
                     {dashboard.timeline.map((event, i) => (
                       <div key={i} className="relative pl-6 pb-5 last:pb-0">
                         <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full ring-2"
-                          style={{ background: 'var(--bg)', borderColor: '#3b82f6', ringColor: 'var(--bg)' }} />
+                          style={{ background: 'var(--bg)', borderColor: '#3b82f6' }} />
                         <div className="flex gap-4 items-baseline">
                           <span className="text-xs font-mono flex-shrink-0" style={{ color: 'var(--text-muted)' }}>{event.time}</span>
                           <span className="text-sm font-medium text-gray-200">{event.title}</span>
